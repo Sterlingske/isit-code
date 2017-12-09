@@ -5,6 +5,7 @@
 describe('test elven-config suite', function() {
     'use strict';
 
+    const lastname = 'calvert';
     const elfConfig = require('../index').elfConfig;
     const elfUtils = require('../index').elfUtils;
     const elfLog = require('../index').elfLog();
@@ -24,10 +25,10 @@ describe('test elven-config suite', function() {
         elfConfig.useLocalConfig = false;
         elfConfig.loadAsync()
             .then(function(data) {
-                expect(data.users.calvert['base-dir']).toBe('/home/bcuser/');
-                expect(data.users.calvert['bootswatch']).toBeDefined();
-                expect(data.users.calvert['most-recent-date']).toBeDefined();
-                expect(data.users.calvert['site-dirs']).toBeDefined();
+                expect(data.users[lastname]['base-dir']).toBe('/home/charlie/');
+                expect(data.users[lastname]['bootswatch']).toBeDefined();
+                expect(data.users[lastname]['most-recent-date']).toBeDefined();
+                expect(data.users[lastname]['site-dirs']).toBeDefined();
             })
             .catch(errorHandler)
             .then(done);
@@ -39,7 +40,7 @@ describe('test elven-config suite', function() {
         // [ 'users', 'selectedElvenImages', 'elvenImages' ]
         console.log(Object.keys(content));
         const home = elfUtils.ensureEndsWithPathSep(process.env.HOME);
-        expect(content.users.calvert['base-dir']).toBe(home);
+        expect(content.users[lastname]['base-dir']).toBe(home);
     });
 
     it('shows we can get the root keys which name the items in the config file', function(done) {
@@ -55,11 +56,11 @@ describe('test elven-config suite', function() {
             .then(done);
     });
 
-    it('shows we can get the calvert keys', function(done) {
+    it('shows we can get the lastname keys', function(done) {
         elfConfig.loadAsync()
             .then(function() {
                 const keys = elfConfig.keys('users');
-                expect(keys[0]).toBe('calvert');
+                expect(keys[0]).toBe(lastname);
             })
             .catch(errorHandler)
             .then(done);
@@ -68,45 +69,49 @@ describe('test elven-config suite', function() {
     it('shows we can configure', (done) => {
         elfConfig.loadAsync()
             .then(function(config) {
-                const keys = Object.keys(config.users.calvert);
+                const keys = Object.keys(config.users[lastname]);
                 console.log(keys);
+<<<<<<< HEAD
                 expect(config.users.calvert['base-dir']).toBe('/home/bcuser/');
+=======
+                expect(config.users[lastname]['base-dir']).toBe('/home/charlie/');
+>>>>>>> a09183243691b7f35b3f43e962114a50be82c995
             })
             .catch(errorHandler)
             .then(done);
     });
 
-    it('shows we can get the calvert base dir', function(done) {
+    it('shows we can get the lastname base dir', function(done) {
         elfConfig.loadAsync()
             .then(function() {
+<<<<<<< HEAD
                 const dir = elfConfig.get('users', 'calvert', 'base-dir');
                 expect(dir).toBe('/home/bcuser/');
+=======
+                const dir = elfConfig.get('users', lastname, 'base-dir');
+                expect(dir).toBe('/home/charlie/');
+>>>>>>> a09183243691b7f35b3f43e962114a50be82c995
             })
             .catch(errorHandler)
             .then(done);
     });
 
-    it('shows we can set the calvert base dir', (done) => {
+    it('shows we can set the lastname base dir', (done) => {
         elfConfig.loadAsync()
             .then(function(config) {
+<<<<<<< HEAD
                 expect(config.users.calvert['base-dir']).toBe('/home/charlie/');
                 const dir = elfConfig.set('/home/charlie/', 'users', 'calvert', 'base-dir');
                 expect(config.users.calvert['base-dir']).toBe('/home/charlie/');
+=======
+                expect(config.users[lastname]['base-dir']).toBe('/home/charlie/');
+                const dir = elfConfig.set('/home/bcuser/', 'users', lastname, 'base-dir');
+                expect(config.users[lastname]['base-dir']).toBe('/home/bcuser/');
+>>>>>>> a09183243691b7f35b3f43e962114a50be82c995
             })
             .catch(errorHandler)
             .then(done);
     });
-
-    /*it('shows we can change the calvert base dir', (done) => {
-        elfConfig.loadAsync()
-            .then(function(config) {
-                const dir = elfConfig.set('balvert', 'users', 'calvert');
-                expect(config.users.balvert).toBeDefined();
-            })
-            .catch(errorHandler)
-            .then(done);
-    });*/
-
 
     it('shows we can get the california elvenImages', function(done) {
         elfConfig.useLocalConfig = false;
@@ -120,4 +125,3 @@ describe('test elven-config suite', function() {
     });
 
 });
-  
